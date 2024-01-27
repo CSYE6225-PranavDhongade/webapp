@@ -11,8 +11,11 @@ on:
 
 jobs:
   deploy:
-      runs-on: ubuntu-latest
-      
+  build:
+    name: TestCheck
+
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [21.x]
