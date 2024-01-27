@@ -10,10 +10,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  deploy:
   build:
-    name: TestCheck
-
+    name: python test
     runs-on: ubuntu-latest
 
     strategy:
