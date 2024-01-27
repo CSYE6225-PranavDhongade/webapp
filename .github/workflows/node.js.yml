@@ -10,10 +10,9 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  deploy:
+      runs-on: ubuntu-latest
+      
     strategy:
       matrix:
         node-version: [21.x]
