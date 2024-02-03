@@ -1,4 +1,5 @@
-const { add } = require('../math');
+const {add} = require('../math');
+const {app} = require('../index');
 
 // Test case 1
 test('adds 1 + 2 to equal 3', () => {
