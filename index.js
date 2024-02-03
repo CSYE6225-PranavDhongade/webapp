@@ -29,7 +29,6 @@ app.use('/healthz', (req, res, next) => {
     res.status(400).header('Cache-Control', 'no-cache').send('Bad Request');
   }
   req.sequelize = sequelize;
-  next();
 });
 
 app.use('/healthz', healthCheck);
