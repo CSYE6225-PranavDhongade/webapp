@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+
 const response = require('../auth/response');
 
 //I need to handle for other endpoints
@@ -16,6 +17,7 @@ exports.healthz_get = asyncHandler(async (req, res, next) => {
         } else {
             res.status(503).header('Cache-Control', 'no-cache').send('Service Unavailable');
         }
+        
     } catch (error) {
         console.error(error);
         res.status(500).header('Cache-Control', 'no-cache').send('Internal Server Error');
