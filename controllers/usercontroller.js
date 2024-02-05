@@ -4,7 +4,7 @@ const response = require('../auth/response');
 const saltRounds = 10
 const bcrypt = require('bcrypt');
 const basicAuth = require('../auth/basicAuth');
-const { NOW } = require("sequelize/lib/data-types");
+const { NOW, DATE } = require("sequelize/lib/data-types");
 
 exports.createUser = asyncHandler(async (req, res, next) => {
     try {
@@ -108,10 +108,13 @@ exports.userUpdate = asyncHandler(async (req, res, next) => {
             userData.password = hashedPassword;
         }
 
+        userData.account_updated = new Date();
+
         const userCreate1 = {
             first_name: userData.first_name,
             last_name: userData.last_name,
             password: userData.password,
+            account_updated: userData.account_updated
         };
 
         await User.update(userCreate1 , {
