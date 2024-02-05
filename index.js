@@ -4,25 +4,39 @@ var createError = require('http-errors');
 
 var healthCheck = require('./routes/healthz');
 
+var usersRouter = require('./routes/userroute');
+
 const app = express();
 
 const port = 3000;
 
-const { Sequelize } = require('sequelize');
+const sequelize = require('./config/sequelizeconfig');
 
-const sequelize = new Sequelize({
-  dialect: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'pranavdhongade',
-  password: 'root',
-  database: 'cloudAssignmentDatabase',
-  define: {
-    timestamps: false,
-  },
+const userModel = require('./models/user');
+
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }));
+
+// Run migrations on server startup
+async function runMigrations() {
+  //we need to define the User model first
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to the database has been established successfully.');
+    await userModel.sync({ alter: true }); // This will apply any pending migrations
+    console.log('Database synchronized successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+
+// Start the server after running migrations
+runMigrations().then(() => {
+  app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
 });
-
-app.use(express.urlencoded({ extended: true }));
 
 app.use('/healthz', (req, res, next) => {
   if (req.headers["content-type"]) {
@@ -31,8 +45,4 @@ app.use('/healthz', (req, res, next) => {
   req.sequelize = sequelize;
 });
 
-app.use('/healthz', healthCheck);
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
-});
+app.use('/user', usersRouter);
