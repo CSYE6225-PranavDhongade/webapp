@@ -4,9 +4,9 @@ const sequelize = new Sequelize({
   dialect: 'postgres',
   host: 'localhost',// e.g., 'localhost'
   port: 5432,// default PostgreSQL port
-  username: 'pranavdhongade',
+  username: 'postgres',
   password: 'root',
-  database: 'cloudAssignmentDatabase',
+  database: 'cloudassignmentdatabase',
   define: {
     timestamps: false,// Disable timestamps by default
   },

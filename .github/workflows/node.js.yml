@@ -27,4 +27,15 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
+
+    - name: Install postgres
+    -run: |
+      sudo apt-get update
+      sudo apt-get install -y postgresql postgresql-contrib
+      sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql
+      sudo service postgresql start
+      
+
+
+
     - run: npm test

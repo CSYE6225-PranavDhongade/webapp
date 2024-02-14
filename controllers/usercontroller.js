@@ -22,18 +22,20 @@ exports.createUser = asyncHandler(async (req, res, next) => {
             where: { email: email }
         });
 
-        console.log("email" + duplicateEmail)
+        console.log("email" + duplicateEmail);
 
         if (duplicateEmail) {
             return response.failureResponse(res, 401, "Duplicate Email");
         }
+
+        console.log(password);
 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         const userCreate = await User.create({
             first_name: first_name,
             last_name: last_name,
-            account_created: User.sequelize.fn('NOW'), // Use sequelize.fn to set the current timestamp
+            account_created: User.sequelize.fn('NOW'),
             email: email,
             password: hashedPassword
         });
@@ -53,6 +55,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.getUser = asyncHandler(async (req, res, next) => {
+
     const userData = await basicAuth(req, res, next);
 
     if (!userData) {
@@ -71,7 +74,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
         return response.successResponse(res, 200, getUser);
 
     } catch (error) {
-        return response.failureResponse(res, 500, "Internal Server Error",);
+        return response.failureResponse(res, 500, "Internal Server Error");
     }
 });
 
@@ -117,14 +120,13 @@ exports.userUpdate = asyncHandler(async (req, res, next) => {
             account_updated: userData.account_updated
         };
 
-        await User.update(userCreate1 , {
+        await User.update(userCreate1, {
             where: { id: userData.id },
         });
 
         const updatedUser = await User.findOne({ id: userData.id });
 
         if (updatedUser) {
-            // Access the updated data
             console.log('User updated successfully:', updatedUser);
         } else {
             console.log('No user found with the specified email.');

@@ -45,4 +45,6 @@ app.use('/healthz', (req, res, next) => {
   req.sequelize = sequelize;
 });
 
-app.use('/user', usersRouter);
+app.use('/users', usersRouter);
+
+module.exports = {app, runMigrations}
