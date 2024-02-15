@@ -29,15 +29,14 @@ jobs:
     - run: npm run build --if-present
 
     - name: Install postgres
-    - run: |
-      sudo yum update
-      sudo yum install -y gcc-c++ make
-      sudo yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-      sudo dnf install postgresql-server postgresql-contrib
-      sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql –debug
-      sudo systemctl start postgresql
-      sudo -u postgres psql
-      ALTER USER postgres WITH PASSWORD 'root';
-      CREATE DATABASE cloudassignmentdatabase;
+      run: |
+        sudo yum update
+        sudo yum install -y gcc-c++ make
+        sudo yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+        sudo dnf install postgresql-server postgresql-contrib
+        sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql –debug
+        sudo systemctl start postgresql
+        sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'root';"
+        sudo -u postgres psql -c "CREATE DATABASE cloudassignmentdatabase;"
       
     - run: npm test
