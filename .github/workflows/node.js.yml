@@ -32,11 +32,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt upgrade -y
-        sudo apt install -y g++ make
-        sudo apt install -y postgresql postgresql-contrib
         sudo systemctl start postgresql
-        sudo systemctl enable postgresql
-        sudo systemctl status postgresql
         sudo -u postgres psql
         sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'root';"
         sudo -u postgres psql -c "CREATE DATABASE cloudassignmentdatabase;"
