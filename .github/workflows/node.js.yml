@@ -25,14 +25,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
+    - run: npm install
+    # - run: npm run build --if-present
 
     - name: Install postgres
       run: |
-        sudo apt update
-        sudo apt upgrade -y
-        sudo systemctl start postgresql
+        sudo systemctl start postgresql.service
         sudo -u postgres psql
         sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'root';"
         sudo -u postgres psql -c "CREATE DATABASE cloudassignmentdatabase;"
