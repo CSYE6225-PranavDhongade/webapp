@@ -4,7 +4,7 @@ const sequelize = new Sequelize({
   dialect: 'postgres',
   host: 'localhost',
   port: 5432,
-  username: 'pranavdhongade',
+  username: 'postgres',
   password: 'root',
   database: 'cloudAssignmentDatabase',
   define: {
