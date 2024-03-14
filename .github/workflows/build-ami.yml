@@ -7,9 +7,7 @@ on:
       - main
     types: [closed]
 jobs:
-  integration-tests:
-    if: ${{ github.event.pull_request.merged }}
-    runs-on: ubuntu-latest
+    name: amibuild test
 
     steps:
     - name: Checkout code
