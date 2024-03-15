@@ -14,15 +14,12 @@ jobs:
   - name: Checkout code
     uses: actions/checkout@v3
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: zip application
-      run: zip -r webapp.zip
-    - name: Packer init
-        run: |
-          packer init ./packer/ami.pkr.hcl
-          
-    - name: Build AMI
+  - name: zip application
+    run: zip -r webapp.zip
+  - name: Packer init
       run: |
-        packer build ./packer/ami.pkr.hcl
+        packer init ./packer/ami.pkr.hcl
+        
+  - name: Build AMI
+    run: |
+      packer build ./packer/ami.pkr.hcl
