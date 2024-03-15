@@ -8,21 +8,19 @@ on:
     types: [closed]
 
 jobs:
-  build:
-    build_and_deploy_ami:
-      name: python2 test
-      runs-on: ubuntu-latest
+  build_and_deploy_ami:
+    name: Python 2 Test
+    runs-on: ubuntu-latest
 
-  steps:
-  - name: Checkout code
-    uses: actions/checkout@v3
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-  - name: zip application
-    run: zip -r webapp.zip
-  - name: Packer init
-    run: |
-      packer init ./packer/ami.pkr.hcl
-        
-  - name: Build AMI
-    run: |
-      packer build ./packer/ami.pkr.hcl
+    - name: Zip application
+      run: zip -r webapp.zip .
+
+    - name: Packer init
+      run: packer init ./packer/ami.pkr.hcl
+
+    - name: Build AMI
+      run: packer build ./packer/ami.pkr.hcl
