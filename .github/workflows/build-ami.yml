@@ -20,7 +20,7 @@ jobs:
       run: zip -r webapp.zip .
 
     - name: Packer init
-      run: packer init ./packer/ami.pkr.hcl
+      run: packer init ./packer/centos-stream.pkr.hcl
 
     - name: Build AMI
-      run: packer build ./packer/ami.pkr.hcl
+      run: packer build ./packer/centos-stream.pkr.hcl
