@@ -6,8 +6,10 @@ on:
     branches: 
       - main
     types: [closed]
+
 jobs:
-  build_and_deploy_ami:
+  build:
+    build_and_deploy_ami: python3 test
     runs-on: ubuntu-latest
 
   steps:
@@ -17,8 +19,8 @@ jobs:
   - name: zip application
     run: zip -r webapp.zip
   - name: Packer init
-      run: |
-        packer init ./packer/ami.pkr.hcl
+    run: |
+      packer init ./packer/ami.pkr.hcl
         
   - name: Build AMI
     run: |
