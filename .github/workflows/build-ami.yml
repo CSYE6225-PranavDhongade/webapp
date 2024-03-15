@@ -7,13 +7,13 @@ on:
       - main
     types: [closed]
 jobs:
-  name: amibuild test
+  build_and_deploy_ami:
+    runs-on: ubuntu-latest
 
   steps:
   - name: Checkout code
     uses: actions/checkout@v3
 
-  build_and_deploy_ami:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -22,6 +22,7 @@ jobs:
     - name: Packer init
         run: |
           packer init ./packer/ami.pkr.hcl
+          
     - name: Build AMI
       run: |
         packer build ./packer/ami.pkr.hcl
