@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     build_and_deploy_ami:
-      name: python test
+      name: python2 test
       runs-on: ubuntu-latest
 
   steps:
