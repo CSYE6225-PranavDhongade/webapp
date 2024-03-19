@@ -29,17 +29,17 @@ build {
   }
 
   provisioner "file" {
-    source      = "./setup.sh"
+    source      = "./packer/setup.sh"
     destination = "/tmp/setup.sh"
   }
 
   provisioner "file" {
-    source      = "./init.sh"
+    source      = "./packer/init.sh"
     destination = "/tmp/init.sh"
   }
 
   provisioner "file" {
-    source      = "./bootup.service"
+    source      = "./packer/bootup.service"
     destination = "/tmp/bootup.service"
   }
   
