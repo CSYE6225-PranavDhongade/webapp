@@ -19,10 +19,10 @@ jobs:
     - name: Zip application
       run: zip -r webapp.zip .
 
-    # - name: Set up Google Cloud SDK
-    #   uses: google-github-actions/setup-gcloud@v0.2.0
-    #   with:
-    #     service_account_key: ${{ secrets.SERVICEKEY }}
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
 
     - name: Set up environment variables
       run: |
