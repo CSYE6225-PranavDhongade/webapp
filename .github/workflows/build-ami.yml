@@ -19,6 +19,15 @@ jobs:
     - name: Zip application
       run: zip -r webapp.zip .
 
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        service_account_key: ${{ secrets.SERVICEKEY }}
+
+    # - name: Set up environment variables
+    #   run: |
+    #     export GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/path/to/your/service-account-key.json
+
     - name: Packer init
       run: packer init ./packer/centos-stream.pkr.hcl
 
