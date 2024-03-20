@@ -26,6 +26,7 @@ jobs:
 
     - name: Check Service Account Key File
       run: |
+        echo { github.workspace }
         if [ ! -f "${{ github.workspace }}/secrets/project4-414017-5c44874f2950.json" ]; then
           echo "Error: Service account key file not found."
           exit 1
