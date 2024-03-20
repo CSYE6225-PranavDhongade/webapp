@@ -24,13 +24,17 @@ jobs:
       with:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
 
+    - name: dummy prints
+      run: |
+          echo ${{ github.workspace }}
+          echo $GITHUB_WORKSPACE
+        
     - name: Check Service Account Key File
       run: |
-        echo ${{ github.workspace }}
-        if [ ! -f "${{ github.workspace }}/secrets/project4-414017-5c44874f2950.json" ]; then
-          echo "Error: Service account key file not found."
-          exit 1
-        fi
+          if [ ! -f "${{ github.workspace }}/secrets/project4-414017-5c44874f2950.json" ]; then
+            echo "Error: Service account key file not found."
+            exit 1
+          fi
 
     - name: Set up environment variables
       run: |
