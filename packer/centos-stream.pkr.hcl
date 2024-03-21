@@ -15,7 +15,7 @@ source "googlecompute" "centos-stream8" {
   ssh_username        = "centos"
   image_family        = "centos-stream8"
   image_description   = "Custom CentOS stream 8 image"
-  subnetwork          = "projects/project4-414017/regions/us-east4/subnetworks/webapproute"
+  network          = "default"
 }
 
 build {
