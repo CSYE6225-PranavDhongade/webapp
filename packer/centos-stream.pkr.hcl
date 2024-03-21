@@ -15,7 +15,7 @@ source "googlecompute" "centos-stream8" {
   ssh_username        = "centos"
   image_family        = "centos-stream8"
   image_description   = "Custom CentOS stream 8 image"
-  network          = "default"
+  subnetwork          = "default"
 }
 
 build {
