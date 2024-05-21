@@ -17,7 +17,7 @@ echo unzip done
 
 sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 
-echo postgres download done
+# echo postgres download done
 
 # sudo rpm --import https://www.postgresql.org/media/keys/ACCC4CF8.asc
 
@@ -71,6 +71,8 @@ sudo rm -rf node_modules
 sudo npm install -rf node_modules
 
 sudo npm i bcrypt
+
+sudo npm i dotenv
 
 #we need to install postgres
 # # Install MySQL server
