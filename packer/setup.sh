@@ -15,7 +15,7 @@ sudo yum install -y unzip
 
 echo unzip done
 
-sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+# sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 
 # echo postgres download done
 
@@ -23,23 +23,23 @@ sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-
 
 # sudo yum clean all
 
-sudo yum --nogpgcheck install -y postgresql-server postgresql-contrib
+# sudo yum --nogpgcheck install -y postgresql-server postgresql-contrib
 
-echo postgres install done
+# echo postgres install done
 
-sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql –debug
+# sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql –debug
 
-echo permission changed
+# echo permission changed
 
-sudo systemctl start postgresql
+# sudo systemctl start postgresql
 
-echo postgresql started
+# echo postgresql started
 
-sudo systemctl enable postgresql
+# sudo systemctl enable postgresql
 
-echo postgresql enabled
+# echo postgresql enabled
 
-sudo -u postgres bash -c 'psql -c "ALTER USER postgres WITH PASSWORD '\''root'\'';" && psql -c "CREATE DATABASE cloudassignmentdatabase;"'
+# sudo -u postgres bash -c 'psql -c "ALTER USER postgres WITH PASSWORD '\''root'\'';" && psql -c "CREATE DATABASE cloudassignmentdatabase;"'
 
 # sudo yum install -y gcc-c++ make
 
@@ -72,7 +72,7 @@ sudo npm install -rf node_modules
 
 sudo npm i bcrypt
 
-sudo npm i dotenv
+sudo npm install dotenv
 
 #we need to install postgres
 # # Install MySQL server
