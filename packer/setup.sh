@@ -66,8 +66,6 @@ sudo unzip webapp.zip -d webapp
 # go in the webapp
 cd webapp/ || exit
 
-npm install --save dotenv
-
 #install the npm dependencies
 
 sudo rm -rf node_modules
@@ -75,6 +73,8 @@ sudo rm -rf node_modules
 sudo npm install -rf node_modules
 
 sudo npm i bcrypt
+
+sudo npm install --save dotenv
 
 # sudo npm install dotenv
 
