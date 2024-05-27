@@ -49,11 +49,11 @@ echo unzip done
 
 sudo mkdir -p /opt/csye6225/
 
-sudo groupadd csye6225
+# sudo groupadd csye6225
 
 # sudo useradd -s /sbin/nologin -g csye6225 -d /opt/csye6225 -m csye6225
 
-sudo useradd -g csye6225 -d /opt/csye6225 -m csye6225
+# sudo useradd -g csye6225 -d /opt/csye6225 -m csye6225
 
 sudo cp /tmp/webapp.zip /opt/csye6225/
 
@@ -66,6 +66,8 @@ sudo unzip webapp.zip -d webapp
 # go in the webapp
 cd webapp/ || exit
 
+sudo npm install dotenv
+
 #install the npm dependencies
 
 sudo rm -rf node_modules
@@ -74,7 +76,7 @@ sudo npm install -rf node_modules
 
 sudo npm i bcrypt
 
-sudo npm install dotenv
+# sudo npm install dotenv
 
 #we need to install postgres
 # # Install MySQL server
