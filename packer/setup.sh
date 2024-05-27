@@ -51,7 +51,9 @@ sudo mkdir -p /opt/csye6225/
 
 sudo groupadd csye6225
 
-sudo useradd -s /sbin/nologin -g csye6225 -d /opt/csye6225 -m csye6225
+# sudo useradd -s /sbin/nologin -g csye6225 -d /opt/csye6225 -m csye6225
+
+sudo useradd -g csye6225 -d /opt/csye6225 -m csye6225
 
 sudo cp /tmp/webapp.zip /opt/csye6225/
 
