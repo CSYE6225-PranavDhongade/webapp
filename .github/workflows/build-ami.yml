@@ -14,27 +14,21 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Zip application
       run: zip -r webapp.zip .
 
-    - name: Set up Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.2.0
+    - name: Authenticate up gcloud
+      uses: google-github-actions/auth@v2
       with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-
-    - name: Check Service Account Key File
-      run: |
-        if [ ! -f "${{ github.workspace }}/secrets/project4-414017-5c44874f2950.json" ]; then
-          echo "Error: Service account key file not found."
-          exit 1
-        fi
-
-    - name: Set up environment variables
-      run: |
-        export GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/secrets/project4-414017-5c44874f2950.json
-
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        
+    - name: Setup Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        version: '>= 363.0.0'
+      
     - name: Packer init
       run: packer init ./packer/centos-stream.pkr.hcl
 
