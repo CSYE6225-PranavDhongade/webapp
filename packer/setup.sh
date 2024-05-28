@@ -70,13 +70,12 @@ cd webapp/ || exit
 
 # Step 3: Update npm to the latest version globally
 
+rm package-lock.json
+
 sudo rm -rf node_modules
 
 # Step 2: Reinstall dependencies
-sudo npm install -rf node_modules
-
-# Step 3: Update npm to the latest version globally
-npm install -g npm@latest -rf node_modules
+sudo npm install
 
 sudo npm i bcrypt
 
