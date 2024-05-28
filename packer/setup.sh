@@ -70,7 +70,7 @@ cd webapp/ || exit
 
 # Step 3: Update npm to the latest version globally
 
-rm package-lock.json
+npm cache clean --force
 
 sudo rm -rf node_modules
 
