@@ -70,16 +70,12 @@ cd webapp/ || exit
 
 # Step 3: Update npm to the latest version globally
 
-npm cache clean --force
-
-sudo rm -rf node_modules
-
 # Step 2: Reinstall dependencies
-sudo npm install rm -rf node_modules
+sudo npm install
 
 sudo npm i bcrypt
 
-# sudo npm install dotenv
+sudo npm install dotenv
 
 # sudo npm install dotenv
 
