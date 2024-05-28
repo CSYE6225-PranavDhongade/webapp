@@ -68,14 +68,10 @@ cd webapp/ || exit
 
 #install the npm dependencies
 
-sudo rm -rf node_modules
+# Step 3: Update npm to the latest version globally
 
-sudo npm install -rf node_modules
-
-sudo npm i bcrypt
-
-sudo npm install dotenv
-
+# Step 2: Reinstall dependencies
+sudo npm install 
 
 # sudo npm install dotenv
 
