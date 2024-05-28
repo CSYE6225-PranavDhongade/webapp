@@ -28,6 +28,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@v2
       with:
         version: '>= 363.0.0'
+        
     - name: Packer init
       run: packer init ./packer/centos-stream.pkr.hcl
 
