@@ -76,6 +76,8 @@ sudo npm i bcrypt
 
 sudo npm install dotenv
 
+
+
 # sudo npm install dotenv
 
 #we need to install postgres
