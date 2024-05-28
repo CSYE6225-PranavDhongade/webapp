@@ -75,7 +75,7 @@ npm cache clean --force
 sudo rm -rf node_modules
 
 # Step 2: Reinstall dependencies
-sudo npm install
+sudo npm install rm -rf node_modules
 
 sudo npm i bcrypt
 
