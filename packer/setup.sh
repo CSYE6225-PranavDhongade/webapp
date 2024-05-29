@@ -68,14 +68,7 @@ cd webapp/ || exit
 
 #install the npm dependencies
 
-sudo rm -rf node_modules
-
-sudo npm install -rf node_modules
-
-sudo npm i bcrypt
-
-sudo npm install dotenv
-
+sudo npm install
 
 # sudo npm install dotenv
 
