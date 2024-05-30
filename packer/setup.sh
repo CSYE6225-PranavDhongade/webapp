@@ -68,10 +68,7 @@ cd webapp/ || exit
 
 #install the npm dependencies
 
-# Step 3: Update npm to the latest version globally
-
-# Step 2: Reinstall dependencies
-sudo npm install 
+sudo npm install
 
 # sudo npm install dotenv
 
