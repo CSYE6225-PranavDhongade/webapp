@@ -36,6 +36,19 @@ const User = sequelizeConfig.define('User', {
         defaultValue: Sequelize.NOW,
         allowNull: false
     },
+    token: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    verify: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    },
+    token_create_time: {
+        type: Sequelize.DATE,
+        allowNull: true
+    }
   });
 
 module.exports = User;
