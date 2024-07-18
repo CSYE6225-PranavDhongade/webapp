@@ -6,5 +6,6 @@ router.post('/', userController.createUser);
 router.get('/', userController.getUser);
 // router.get('/', userController.getUsers);
 router.put('/', userController.userUpdate);
+router.get('/verify_email', userController.verifyEmail);
 
 module.exports = router;

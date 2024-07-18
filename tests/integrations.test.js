@@ -1,6 +1,5 @@
 const request = require('supertest');
 const { app, runMigrations } = require('../index.js');
-const should = require('should');
 
 beforeAll(async () => {
     await runMigrations();

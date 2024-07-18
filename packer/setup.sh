@@ -6,6 +6,40 @@ sudo yum update -y
 # Install Vim and net-tools
 sudo yum install -y vim net-tools
 
+curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+
+sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+
+sudo bash -c 'cat <<EOF > /etc/google-cloud-ops-agent/config.yaml
+logging:
+  receivers:
+    my-app-receiver:
+      type: files
+      include_paths:
+        - /var/log/csye6225/myapp.log
+      record_log_file_path: true
+  processors:
+    my-app-processor:
+      type: parse_json
+      time_key: time
+      time_format: "%Y-%m-%dT%H:%M:%S.%L"
+    move_severity:
+      type: modify_fields
+      fields:
+        severity:
+          move_from: jsonPayload.severity
+  service:
+    pipelines:
+      default_pipeline:
+        receivers: [my-app-receiver]
+        processors: [my-app-processor, move_severity]
+EOF'
+
+sudo systemctl restart google-cloud-ops-agent
+
+# Verify the Ops Agent status
+sudo systemctl status google-cloud-ops-agent
+
 # Install Node.js v20.x
 curl -sL https://rpm.nodesource.com/setup_20.x | sudo bash -
 
@@ -48,6 +82,8 @@ echo unzip done
 # rm -rf node_modules
 
 sudo mkdir -p /opt/csye6225/
+
+sudo mkdir /var/log/csye6225
 
 # sudo groupadd csye6225
 

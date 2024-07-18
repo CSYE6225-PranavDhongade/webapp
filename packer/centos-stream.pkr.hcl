@@ -9,13 +9,13 @@ packer {
 
 source "googlecompute" "centos-stream8" {
   project_id          = "project4-414017"
-  source_image_family = "centos-stream-8"
+  source_image_family = "centos-stream-9"
   zone                = "us-east4-b"
-  image_name          = "centos-stream8-{{timestamp}}"
+  image_name          = "centos-stream9-{{timestamp}}"
   ssh_username        = "centos"
-  image_family        = "centos-stream8"
-  image_description   = "Custom CentOS stream 8 image"
-  #subnetwork         = "projects/project4-414017/regions/us-east4/subnetworks/webapp1"
+  image_family        = "centos-stream9"
+  image_description   = "Custom CentOS stream 9 image"
+  #subnetwork         = "projects/project4-414017/regions/us-east4/subnetworks/subnet1"
   #network= "global/networks/cloudassignmentvpc5"
   network = "global/networks/cloudassignmentvpc5"
   subnetwork = "regions/us-east4/subnetworks/subnet1"

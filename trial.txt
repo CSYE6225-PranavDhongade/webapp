@@ -1,0 +1,4 @@
+gcloud projects add-iam-policy-binding complete-aviary-415002 \
+    --member=serviceaccount1@complete-aviary-415002.iam.gserviceaccount.com\
+    --role=roles/compute.instanceAdmin.v1clear
+    

@@ -5,10 +5,17 @@ const saltRounds = 10
 const bcrypt = require('bcrypt');
 const basicAuth = require('../auth/basicAuth');
 const { NOW, DATE } = require("sequelize/lib/data-types");
+const { PubSub } = require('@google-cloud/pubsub');
+const pubsub = new PubSub();
+const topicName = 'verify_email'; // replace with your Pub/Sub topic name
+const { publishMessage, listenForPullMessages } = require("../pubsub");
+const { v4: uuidv4 } = require('uuid');
 
 exports.createUser = asyncHandler(async (req, res, next) => {
     try {
         const { first_name, last_name, email, password, account_created, account_updated } = req.body;
+
+        console.log("body" + first_name);
 
         if (account_created) {
             return response.failureResponse(res, 400, "Bad Request");
@@ -37,8 +44,15 @@ exports.createUser = asyncHandler(async (req, res, next) => {
             last_name: last_name,
             account_created: User.sequelize.fn('NOW'),
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            verify: false,
+            token_create_time: User.sequelize.fn('NOW'),
+            token: uuidv4()
         });
+
+        console.log(userCreate);
+
+        let messageId = await publishMessage(topicName, userCreate);
 
         const userCreate1 = ({
             first_name: userCreate.first_name,
@@ -52,6 +66,14 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     } catch (error) {
         return res.status(500).json({ error: error });
     }
+
+    //cloud function should be called
+
+    // const messageBuffer = Buffer.from(JSON.stringify(userCreate1));
+
+    // await pubsub.topic(topicName).publish(messageBuffer);
+
+    // res.json(userCreate1);
 });
 
 exports.getUser = asyncHandler(async (req, res, next) => {
@@ -61,6 +83,9 @@ exports.getUser = asyncHandler(async (req, res, next) => {
     if (!userData) {
         return response.failureResponse(res, 401, "Unauthorised");
     }
+
+    if (!userData.verify)
+        return response.failureResponse(res, 403, "UnVerified User");
 
     try {
         const getUser = ({
@@ -84,6 +109,10 @@ exports.userUpdate = asyncHandler(async (req, res, next) => {
 
     if (!userData) {
         return response.failureResponse(res, 401, "Unauthorised");
+    }
+
+    if (!userData.verify) {
+        return response.failureResponse(res, 403, "Unverified");
     }
 
     try {
@@ -144,3 +173,63 @@ exports.userUpdate = asyncHandler(async (req, res, next) => {
         return res.status(500).send('Server Error');
     }
 });
+
+exports.verifyEmail = async (req, res) => {
+    try {
+        const { token } = req.query;
+
+        const [userToken, userEmail] = token.split('_');
+
+        const user = await User.findOne({ where: { email: userEmail } });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Check if the token matches
+        if (user.token !== userToken) {
+            return res.status(400).json({ message: 'Invalid token' });
+        }
+
+        const currentTime = new Date();
+
+        const tokenCreationTime = user.token_create_time;
+
+        // Check if the current time is within 2 minutes of the token creation time
+        const tokenValidDuration = 2 * 60 * 1000; // 2 minutes in milliseconds
+
+        if (currentTime - tokenCreationTime <= tokenValidDuration) {
+            // Update the verify column
+            user.verify = true;
+
+            await user.save();
+
+            return res.status(200).json({ message: 'Email verified successfully' });
+
+        } else {
+            return res.status(400).json({ message: 'Token expired' });
+        }
+        // const token = req.query.token;
+        // const tokenData = tokenStore[token];
+
+        // if (!tokenData || tokenData.expiresAt < Date.now()) {
+        //   return res.status(400).send('Invalid or expired token');
+        // }
+
+        // const userEmail = tokenData.email;
+
+        // Mark the user's email as verified in your database
+        // Example: updateUserEmailVerificationStatus(userEmail, true);
+
+        // Remove the token from the store after verification
+        // delete tokenStore[token];
+
+        //1. We need to check if the user email exists in the db
+        //2. We need to check if the current time is less or equal to 2 minutes + token creation time.
+        //if both is yes then user is valid
+        //else
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
