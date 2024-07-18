@@ -1,2 +1,0 @@
-{"severity":"ERROR","time":"2024-06-05T16:17:01.037-04:00","pid":90265,"hostname":"Pranavs-MacBook-Pro.local","msg":" 503 service unavailable"}
-{"severity":"INFO","time":"2024-06-05T16:17:01.037-04:00","pid":90265,"hostname":"Pranavs-MacBook-Pro.local","msg":"Unable to connect to the database:"}
